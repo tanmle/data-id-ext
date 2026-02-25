@@ -1,0 +1,171 @@
+/* ── Content script styles ─────────────────────── */
+/* These are injected into web pages for pick mode */
+
+/* Overlay - dims the page slightly during pick mode */
+.data-id-ext-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.08);
+    z-index: 2147483640;
+    pointer-events: none;
+    animation: data-id-ext-fadeIn 200ms ease-out;
+}
+
+@keyframes data-id-ext-fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Highlight all matching elements */
+.data-id-ext-highlight {
+    outline: 2px dashed rgba(129, 140, 248, 0.5) !important;
+    outline-offset: 2px !important;
+    position: relative;
+    z-index: 2147483641;
+}
+
+/* Hover state on matching elements */
+.data-id-ext-hover {
+    outline: 2px solid #818cf8 !important;
+    outline-offset: 2px !important;
+    background-color: rgba(129, 140, 248, 0.08) !important;
+    cursor: pointer !important;
+    z-index: 2147483642;
+}
+
+/* Copied flash effect */
+.data-id-ext-copied {
+    outline: 2px solid #34d399 !important;
+    outline-offset: 2px !important;
+    background-color: rgba(52, 211, 153, 0.12) !important;
+    animation: data-id-ext-flash 600ms ease-out !important;
+}
+
+@keyframes data-id-ext-flash {
+    0% {
+        background-color: rgba(52, 211, 153, 0.3) !important;
+    }
+
+    100% {
+        background-color: rgba(52, 211, 153, 0) !important;
+    }
+}
+
+/* Tooltip */
+.data-id-ext-tooltip {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: #1c1f2e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    z-index: 2147483646;
+    pointer-events: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    animation: data-id-ext-tooltipPop 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes data-id-ext-tooltipPop {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.data-id-ext-tooltip-tag {
+    font-size: 10px;
+    font-weight: 600;
+    color: #6b6d7e;
+    text-transform: uppercase;
+}
+
+.data-id-ext-tooltip-id {
+    font-size: 12px;
+    font-weight: 500;
+    color: #818cf8;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+}
+
+.data-id-ext-tooltip-hint {
+    font-size: 10px;
+    color: #9395a5;
+    padding-left: 4px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-id-ext-tooltip-dup {
+    font-size: 9px;
+    font-weight: 700;
+    color: #fb923c;
+    background: rgba(251, 146, 60, 0.15);
+    border: 1px solid rgba(251, 146, 60, 0.25);
+    padding: 1px 5px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+}
+
+/* Spinning animation for scan button */
+@keyframes data-id-ext-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── In-page notification ─────────────────────── */
+.data-id-ext-notification {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 24px;
+    background: #1c1f2e;
+    color: #34d399;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    z-index: 2147483647;
+    pointer-events: none;
+    animation: data-id-ext-notifIn 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.data-id-ext-notification-error {
+    color: #f87171;
+    border-color: rgba(248, 113, 113, 0.2);
+}
+
+.data-id-ext-notification-hide {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+}
+
+@keyframes data-id-ext-notifIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(16px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+}
